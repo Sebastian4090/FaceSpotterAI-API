@@ -1,4 +1,4 @@
 # FaceSpotterAI-API
 Backend for FaceSpotterAI 
 
-Last Updated: 14.11.2023
+Last Updated: 06.12.2023
