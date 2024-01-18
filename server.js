@@ -2,6 +2,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import cors from 'cors';
 import knex from 'knex';
+import helmet from 'helmet';
 
 import handleRegister from './controllers/register.js';
 import handleSignin from './controllers/signin.js';
@@ -25,6 +26,7 @@ const db = knex({
   });
 
 const app = express();
+app.use(helmet());
 app.use(express.json());
 app.use(cors());
 
