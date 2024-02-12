@@ -1,0 +1,34 @@
+version: "v2.23.3-desktop.2"
+
+services:
+
+  # Backend API
+  face-spotter-api:
+    container_name: backend
+    build: ./
+    command: npm run start:dev
+    working_dir: /usr/src/face-spotter-api
+    environment:
+      POSTGRES_URI: (here link to postres database)
+      REDIS_URI: (here link to redis db)
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/face-spotter-api #this makes it work like nodemon! 
+
+  # Postgres
+  postgres:
+    environment:
+        POSTGRES_USER: test
+        POSTGRES_PASSWORD: secret
+        POSTGRES_DB: face-spotter-docker
+        POSTGRES_HOST: postgres
+    build: ./postgres
+    ports:
+      - "5432:5432"
+
+  # Redis
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
