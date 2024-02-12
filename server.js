@@ -23,16 +23,16 @@ const PORT = process.env.PORT || 3000;
 // Connect to PostgreSQL database
 const db = knex({
     client: 'pg',
-    connection: process.env.POSTGRES_URI
-    // connection: {
-    //   connectionString: pass
-      // ssl: { rejectUnauthorized: false},
-      // host : process.env.POSTGRES_HOST,
-      // // port : process.env.POSTGRES_PORT,
-      // user : process.env.POSTGRES_USER,
-      // password : process.env.POSTGRES_PASSWORD,
-      // database : process.env.POSTGRES_DB
-    // }
+    // connection: process.env.POSTGRES_URI
+    connection: {
+      // connectionString: pass,
+      ssl: { rejectUnauthorized: false},
+      host : process.env.POSTGRES_HOST,
+      port : process.env.POSTGRES_PORT,
+      user : process.env.POSTGRES_USER,
+      password : process.env.POSTGRES_PASSWORD,
+      database : process.env.POSTGRES_DB
+    }
   });
 
 // Test psql connection
