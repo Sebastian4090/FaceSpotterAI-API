@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 
-import handleRegister from './controllers/register.js';
+import registerAuthentication from './controllers/register.js';
 import signinAuthentication from './controllers/signin.js';
 import {handleProfileGet, handleProfileUpdate} from './controllers/profile.js';
 import {handleImage, handleApiCall} from './controllers/image.js';
@@ -23,16 +23,16 @@ const PORT = process.env.PORT || 3000;
 // Connect to PostgreSQL database
 const db = knex({
     client: 'pg',
-    // connection: process.env.POSTGRES_URI
-    connection: {
+    connection: process.env.POSTGRES_URI
+    // connection: {
       // connectionString: pass,
-      ssl: { rejectUnauthorized: false},
-      host : process.env.POSTGRES_HOST,
-      port : process.env.POSTGRES_PORT,
-      user : process.env.POSTGRES_USER,
-      password : process.env.POSTGRES_PASSWORD,
-      database : process.env.POSTGRES_DB
-    }
+      // ssl: { rejectUnauthorized: false},
+      // host : process.env.POSTGRES_HOST,
+      // port : process.env.POSTGRES_PORT,
+      // user : process.env.POSTGRES_USER,
+      // password : process.env.POSTGRES_PASSWORD,
+      // database : process.env.POSTGRES_DB
+    // }
   });
 
 // Test psql connection
@@ -74,7 +74,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/signin', signinAuthentication(db, bcrypt, redisClient))
-app.post('/register', handleRegister(db, bcrypt))
+app.post('/register', registerAuthentication(db, bcrypt, redisClient))
 app.get('/profile/:id', requireAuth(redisClient), (req, res) => { handleProfileGet(req, res, db) })
 app.post('/profile/:id', requireAuth(redisClient), (req, res) => { handleProfileUpdate(req, res, db)})
 app.put('/image', requireAuth(redisClient), (req, res) => { handleImage(req, res, db ) })
