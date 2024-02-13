@@ -2,7 +2,6 @@ import jsonwebtoken from 'jsonwebtoken';
 
 const getAuthTokenId = async (req, res, redisClient) => {
     const { authorization } = req.headers;
-    console.log(authorization)
     await redisClient.get(authorization)
     .then(reply => {
         // Check if token exists in database!
@@ -28,8 +27,12 @@ const createSessions = (user, redisClient) => {
     const token = signToken(email);
     return setToken(token, id, redisClient)
         .then(() => { 
-            return {success: 'true', userId: id, token: token} })
-        .catch(console.log)
+            console.log('token generated successfully')
+            return {success: 'true', userId: id, token: token};
+        })
+        .catch(err => {
+            console.error('Error setting token', err);
+        })
 }
 
 export {

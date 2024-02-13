@@ -1,13 +1,16 @@
+import {createSessions} from './token.js';
+
 const saltRounds = 10;
 
-const handleRegister = (db, bcrypt) => (req, res) => {
+const handleRegister = (db, bcrypt, req, res) => {
+    return new Promise((resolve, reject) => {
     const { email, name, password } = req.body;
     if (!email || !name || !password) {
-        return res.status(400).json('incorrect form submission')
+        reject('incorrect form submission')
     }
     bcrypt.hash(password, saltRounds, (err, hash) => {
-        db.transaction(trx => {
-            trx.insert({
+        return db.transaction(trx => {
+            return trx.insert({
                 hash: hash,
                 email: email
             })
@@ -20,17 +23,25 @@ const handleRegister = (db, bcrypt) => (req, res) => {
                 email: loginEmail[0].email,
                 name: name,
                 joined: new Date(),
-                }).then(user => {
-                    res.json(user[0]);
                 })
+                .then(user =>{
+                    resolve(user[0])})
             })
             .then(trx.commit)
             .catch(trx.rollback)
         })
-        .catch(err => res.status(400).json('unable to register'))
-        
-    });
+        .catch(err => reject('unable to register'))
+        });
+    })}
+
+const registerAuthentication = (db, bcrypt, redisClient) => (req, res) => {
+    return handleRegister(db, bcrypt, req, res)
+    .then(user => {
+        console.log(redisClient)
+        return user.id && user.email ? createSessions(user, redisClient) : Promise.reject(user)
+    })
+    .then(session => res.json(session))
+    .catch(err => console.log(err))
 }
 
-
-export default handleRegister;
+export default registerAuthentication;
