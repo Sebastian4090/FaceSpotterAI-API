@@ -37,7 +37,6 @@ const handleRegister = (db, bcrypt, req, res) => {
 const registerAuthentication = (db, bcrypt, redisClient) => (req, res) => {
     return handleRegister(db, bcrypt, req, res)
     .then(user => {
-        console.log(redisClient)
         return user.id && user.email ? createSessions(user, redisClient) : Promise.reject(user)
     })
     .then(session => res.json(session))
