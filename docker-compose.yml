@@ -9,8 +9,8 @@ services:
     command: npm run start:dev
     working_dir: /usr/src/face-spotter-api
     environment:
-      POSTGRES_URI: (here link to postres database)
-      REDIS_URI: (here link to redis db)
+      POSTGRES_URI: postgres://sally:secret@postgres:5432/face-spotter-docker
+      REDIS_URI: redis://redis:6379
     ports:
       - "3000:3000"
     volumes:
@@ -19,16 +19,16 @@ services:
   # Postgres
   postgres:
     environment:
-        POSTGRES_USER: test
+        POSTGRES_USER: sally
         POSTGRES_PASSWORD: secret
         POSTGRES_DB: face-spotter-docker
         POSTGRES_HOST: postgres
     build: ./postgres
     ports:
-      - "5432:5432"
+      - "8005:5432"
 
   # Redis
   redis:
     image: redis
     ports:
-      - "6379:6379"
+      - "8006:6379"
