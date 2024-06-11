@@ -1,5 +1,8 @@
 # FaceSpotterAI-API
-API for FaceSpotterAI 
+API for FaceSpotterAI<br><br>
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Sebastian4090/FaceSpotterAI-API)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Ffacespotterai.onrender.com%2F)
+![Server](https://img.shields.io/website?url=https%3A%2F%2Ffacespotterai-api.onrender.com&label=server)
 
 ## Developed using
 ![List](https://skillicons.dev/icons?i=nodejs,js,express,postgres,redis,docker,aws)<br>
