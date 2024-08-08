@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-import keepAlive from "./keep_alive.js";
+// import keepAlive from "./keep_alive.js";
 import registerAuthentication from "./controllers/register.js";
 import signinAuthentication from "./controllers/signin.js";
 import {
@@ -95,9 +95,9 @@ app.post("/imageurl", requireAuth(redisClient), (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 
-  if (process.env.NODE_ENV !== "development") {
-    keepAlive();
-  } else {
-    console.log("Developer mode");
-  }
+  // if (process.env.NODE_ENV !== "development") {
+  //   keepAlive();
+  // } else {
+  //   console.log("Developer mode");
+  // }
 });
