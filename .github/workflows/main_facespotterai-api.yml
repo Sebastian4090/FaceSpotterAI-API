@@ -58,5 +58,5 @@ jobs:
         with:
           app-name: 'facespotterai-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8389AEFDDF69465F88DF46E1EFFE68B0 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_669A8EDB36474F1D9B9442A3B19216DD }}
           package: .
